@@ -44,7 +44,7 @@ it does not.
 
 ## Dashboard
 
-Hosted: <DASHBOARD_URL>
+Hosted: [<DASHBOARD_URL>](https://immune-cell-analytics-ukeqhjnxc9pmy9zvk5oyjk.streamlit.app/)
 
 The same application runs locally via `make dashboard`.
 
