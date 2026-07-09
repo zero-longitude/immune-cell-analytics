@@ -31,11 +31,18 @@ st.title("Immune Cell Population Explorer")
 st.caption("Loblaw Bio clinical trial — cell population frequencies and treatment response")
 
 if not DB_PATH.exists():
-    st.error(
-        "Database not found. Build it first with `python load_data.py` "
-        "(or `make pipeline`), then reload this page."
-    )
-    st.stop()
+    # Self-build on first load (e.g. on Streamlit Cloud, where `make pipeline`
+    # is never run). Requires cell-count.csv to be present in the repo.
+    import load_data
+    try:
+        with st.spinner("Building database from cell-count.csv…"):
+            load_data.main()
+    except FileNotFoundError:
+        st.error(
+            "Database not found and cell-count.csv is missing, so it cannot be "
+            "built. Ensure cell-count.csv is committed to the repository."
+        )
+        st.stop()
 
 master = get_master()
 
@@ -54,7 +61,7 @@ with tab2:
     chosen = st.multiselect("Filter populations", populations, default=populations)
     view = freq[freq["population"].isin(chosen)]
 
-    st.dataframe(view, use_container_width=True, hide_index=True)
+    st.dataframe(view, width="stretch", hide_index=True)
     st.caption(
         f"{view['sample'].nunique()} samples · percentages are each population's "
         "share of that sample's total cell count."
@@ -68,10 +75,10 @@ with tab3:
 
     stats = analysis.responder_stats(master)
     fig = analysis.responder_boxplot(master)
-    st.pyplot(fig, use_container_width=True)
+    st.pyplot(fig)
 
     st.markdown("**Mann–Whitney U test per population** (two-sided)")
-    st.dataframe(stats, use_container_width=True, hide_index=True)
+    st.dataframe(stats, width="stretch", hide_index=True)
 
     sig = stats.loc[stats["significant_p<0.05"], "population"].tolist()
     if sig:
@@ -94,10 +101,10 @@ with tab4:
     c1, c2, c3 = st.columns(3)
     with c1:
         st.markdown("**Samples per project**")
-        st.dataframe(by_project, use_container_width=True)
+        st.dataframe(by_project, width="stretch")
     with c2:
         st.markdown("**Subjects by response**")
-        st.dataframe(by_response, use_container_width=True)
+        st.dataframe(by_response, width="stretch")
     with c3:
         st.markdown("**Subjects by sex**")
-        st.dataframe(by_sex, use_container_width=True)
+        st.dataframe(by_sex, width="stretch")
