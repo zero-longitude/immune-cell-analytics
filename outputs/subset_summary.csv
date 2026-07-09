@@ -1,0 +1,17 @@
+# Baseline melanoma/miraclib/PBMC samples (time_from_treatment_start = 0)
+# total baseline samples,656
+
+samples_by_project
+project,n_samples
+prj1,384
+prj3,272
+
+subjects_by_response
+response,n_subjects
+no,325
+yes,331
+
+subjects_by_sex
+sex,n_subjects
+F,312
+M,344
