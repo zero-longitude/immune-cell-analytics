@@ -39,8 +39,7 @@ intervention. It creates `cell_counts.db` in the repository root and writes all
 tables and plots to `outputs/`.
 
 `make dashboard` runs `streamlit run app.py` and serves the dashboard at
-`http://localhost:8501`. The database must exist first; run `make pipeline` if
-it does not.
+`http://localhost:8501`. If cell_counts.db is not present, the dashboard builds it on first load from cell-count.csv.
 
 ## Dashboard
 
