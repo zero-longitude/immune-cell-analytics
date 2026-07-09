@@ -1,0 +1,16 @@
+# Generated database (rebuilt by make pipeline)
+*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor stuff
+.DS_Store
+.vscode/
+.idea/
+
+# Streamlit local config
+.streamlit/secrets.toml
