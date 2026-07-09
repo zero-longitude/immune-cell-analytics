@@ -7,10 +7,10 @@ __pycache__/
 .venv/
 venv/
 
-# Editor stuff
+# OS / editor
 .DS_Store
 .vscode/
 .idea/
 
-# Streamlit local config
+# Streamlit local secrets (config.toml is intentionally tracked)
 .streamlit/secrets.toml
